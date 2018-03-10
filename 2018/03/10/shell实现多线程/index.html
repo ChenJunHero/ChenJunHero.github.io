@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="在linux系统中，移动硬盘和主机之间切换有时候会有这样一种情况：主机可以正常读写硬盘，硬盘和主机断开连接之后，显示移动硬盘会被连接到虚拟机上，但是你却无论如何在虚拟机的文件系统中找不到移动硬盘的分区：这时候只需要一招：setting里面将设置改为usb3.0">
+<meta name="description" content="局限性：伪并发，若命令之间相互交互，不建议使用shell脚本 循环体内使用{}&amp;amp;提示符：[~/bin/multiple_process$]循环体内的命令全部进入后台，没有占用脚本主线程的时间问题：循环体内的命令全部进入后台，相当于开了和循环次数相同的进程数，即开了和循环次数相等的终端。 {}&amp;amp;,done后面加wait等待当前脚本进程下的子进程结束，再运行后面的语句。问题：一旦循环次">
 <meta property="og:type" content="article">
-<meta property="og:title" content="虚拟机不识别移动硬盘">
-<meta property="og:url" content="https://chenjunhero.github.io/2018/03/10/虚拟机不识别移动硬盘/index.html">
+<meta property="og:title" content="shell实现多线程">
+<meta property="og:url" content="https://chenjunhero.github.io/2018/03/10/shell实现多线程/index.html">
 <meta property="og:site_name" content="陈思之的技术小窝">
-<meta property="og:description" content="在linux系统中，移动硬盘和主机之间切换有时候会有这样一种情况：主机可以正常读写硬盘，硬盘和主机断开连接之后，显示移动硬盘会被连接到虚拟机上，但是你却无论如何在虚拟机的文件系统中找不到移动硬盘的分区：这时候只需要一招：setting里面将设置改为usb3.0">
+<meta property="og:description" content="局限性：伪并发，若命令之间相互交互，不建议使用shell脚本 循环体内使用{}&amp;amp;提示符：[~/bin/multiple_process$]循环体内的命令全部进入后台，没有占用脚本主线程的时间问题：循环体内的命令全部进入后台，相当于开了和循环次数相同的进程数，即开了和循环次数相等的终端。 {}&amp;amp;,done后面加wait等待当前脚本进程下的子进程结束，再运行后面的语句。问题：一旦循环次">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-10T12:27:43.480Z">
+<meta property="og:updated_time" content="2018-03-10T14:01:27.115Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="虚拟机不识别移动硬盘">
-<meta name="twitter:description" content="在linux系统中，移动硬盘和主机之间切换有时候会有这样一种情况：主机可以正常读写硬盘，硬盘和主机断开连接之后，显示移动硬盘会被连接到虚拟机上，但是你却无论如何在虚拟机的文件系统中找不到移动硬盘的分区：这时候只需要一招：setting里面将设置改为usb3.0">
+<meta name="twitter:title" content="shell实现多线程">
+<meta name="twitter:description" content="局限性：伪并发，若命令之间相互交互，不建议使用shell脚本 循环体内使用{}&amp;amp;提示符：[~/bin/multiple_process$]循环体内的命令全部进入后台，没有占用脚本主线程的时间问题：循环体内的命令全部进入后台，相当于开了和循环次数相同的进程数，即开了和循环次数相等的终端。 {}&amp;amp;,done后面加wait等待当前脚本进程下的子进程结束，再运行后面的语句。问题：一旦循环次">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="https://chenjunhero.github.io/2018/03/10/虚拟机不识别移动硬盘/"/>
+  <link rel="canonical" href="https://chenjunhero.github.io/2018/03/10/shell实现多线程/"/>
 
 
 
 
 
-  <title>虚拟机不识别移动硬盘 | 陈思之的技术小窝</title>
+  <title>shell实现多线程 | 陈思之的技术小窝</title>
   
 
 
@@ -232,7 +232,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenjunhero.github.io/2018/03/10/虚拟机不识别移动硬盘/">
+    <link itemprop="mainEntityOfPage" href="https://chenjunhero.github.io/2018/03/10/shell实现多线程/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="思之">
@@ -249,7 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">虚拟机不识别移动硬盘</h1>
+          <h1 class="post-title" itemprop="name headline">shell实现多线程</h1>
         
 
         <div class="post-meta">
@@ -261,7 +261,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-10T20:22:49+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-10T20:36:06+08:00">
                 2018-03-10
               </time>
             
@@ -299,7 +299,12 @@
       
 
       
-        <h3 id="在linux系统中，移动硬盘和主机之间切换有时候会有这样一种情况："><a href="#在linux系统中，移动硬盘和主机之间切换有时候会有这样一种情况：" class="headerlink" title="在linux系统中，移动硬盘和主机之间切换有时候会有这样一种情况："></a>在linux系统中，移动硬盘和主机之间切换有时候会有这样一种情况：</h3><p>主机可以正常读写硬盘，硬盘和主机断开连接之后，显示移动硬盘会被连接到虚拟机上，但是你却无论如何在虚拟机的文件系统中找不到移动硬盘的分区：<br>这时候只需要一招：<code>setting里面将设置改为usb3.0</code></p>
+        <p>局限性：伪并发，若命令之间相互交互，不建议使用shell脚本</p>
+<h4 id="循环体内使用-amp"><a href="#循环体内使用-amp" class="headerlink" title="循环体内使用{}&amp;"></a>循环体内使用{}&amp;</h4><p>提示符：[~/bin/multiple_process$]<br>循环体内的命令全部进入后台，没有占用脚本主线程的时间<br>问题：循环体内的命令全部进入后台，相当于开了和循环次数相同的进程数，即开了和循环次数相等的终端。</p>
+<h4 id="amp-done后面加wait"><a href="#amp-done后面加wait" class="headerlink" title="{}&amp;,done后面加wait"></a>{}&amp;,done后面加wait</h4><p>等待当前脚本进程下的子进程结束，再运行后面的语句。<br>问题：一旦循环次数过多，操作系统会瞬间创建所有的紫禁城，会非常消耗资源，如果循环体内的命令很消耗资源，则会崩溃。</p>
+<h4 id="文件描述符控制并发数："><a href="#文件描述符控制并发数：" class="headerlink" title="文件描述符控制并发数："></a>文件描述符控制并发数：</h4><p>繁琐，不推荐</p>
+<h4 id="使用xargs-P控制并发数："><a href="#使用xargs-P控制并发数：" class="headerlink" title="使用xargs -P控制并发数："></a>使用xargs -P控制并发数：</h4><p>简便，推荐</p>
+<h4 id="使用GNU-parall命令控制并发数："><a href="#使用GNU-parall命令控制并发数：" class="headerlink" title="使用GNU parall命令控制并发数："></a>使用GNU parall命令控制并发数：</h4><p>简便，推荐</p>
 
       
     </div>
@@ -324,14 +329,18 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2018/03/10/shell提取文件目录名和方法/" rel="next" title="shell提取文件目录名的方法">
+                <i class="fa fa-chevron-left"></i> shell提取文件目录名的方法
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/03/10/shell提取文件目录名和方法/" rel="prev" title="shell提取文件目录名的方法">
-                shell提取文件目录名的方法 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/03/10/ubuntu宽带连接/" rel="prev" title="ubuntu宽带连接的两种方法">
+                ubuntu宽带连接的两种方法 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -450,7 +459,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#在linux系统中，移动硬盘和主机之间切换有时候会有这样一种情况："><span class="nav-number">1.</span> <span class="nav-text">在linux系统中，移动硬盘和主机之间切换有时候会有这样一种情况：</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#循环体内使用-amp"><span class="nav-number">1.</span> <span class="nav-text">循环体内使用{}&amp;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#amp-done后面加wait"><span class="nav-number">2.</span> <span class="nav-text">{}&amp;,done后面加wait</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文件描述符控制并发数："><span class="nav-number">3.</span> <span class="nav-text">文件描述符控制并发数：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用xargs-P控制并发数："><span class="nav-number">4.</span> <span class="nav-text">使用xargs -P控制并发数：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用GNU-parall命令控制并发数："><span class="nav-number">5.</span> <span class="nav-text">使用GNU parall命令控制并发数：</span></a></li></ol></div>
             
 
           </div>
