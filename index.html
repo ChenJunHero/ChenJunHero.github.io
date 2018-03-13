@@ -232,6 +232,134 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chenjunhero.github.io/2018/03/10/Android体系结构/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="思之">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/png/first.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="陈思之的技术小窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/10/Android体系结构/" itemprop="url">Android软件栈</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-10T22:39:37+08:00">
+                2018-03-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Android软件栈"><a href="#Android软件栈" class="headerlink" title="Android软件栈"></a>Android软件栈</h1><p>Android系统是由不同层次构成的软件栈，每层都有彼此独立的功能并向上层提供特定的服务。<br>由下到上依次是：</p>
+<ul>
+<li>第一层：linux内核层，主要实现驱动模块。显示驱动，相机驱动，蓝牙驱动，WIFI驱动，声卡驱动，电源管理等等。属于一个移动操作系统的基本功能单元。</li>
+<li>第二层：本地库，运行时环境（虚拟机)。数据库：sqlite，libc，界面管理，多媒体框架，webkit等。Android系统调度的核心</li>
+<li>第三层：应用程序框架：实现Android应用程序和本地库以及内核的交互。acitivity manager ，数据库索引 view system 位置管理，电话管理，包管理，资源管理</li>
+<li>第四层：应用程序层，通过第三层提供的API来实现应用软件的功能。直接封装好的应用程序（已经是成品了）<h2 id="Android框架层分析"><a href="#Android框架层分析" class="headerlink" title="Android框架层分析"></a>Android框架层分析</h2>提供系统服务和和硬件交互的接口<br>程序启动—&gt;载入框架层组件管理周期—&gt;event handler启动会执行一些具体的代码（入点）<br>例如：位置这个event是从GPS传感器来的，SMS是从蜂窝芯片得来的。（即数据是从底层被回调上来）<br>有一些入点会在框架层注册（对应在Manifest里面声明）—&gt;被相关event触发<br>Android应用的功能是由一个完整的事件处理程序（Event Handler）组成。Android程序的控制流图和调用关系均是由Event Handler之间的处理顺序和耦合调用组成，有时候不同的Event Handler之间是异步的，多线程的，还有可能通过Intent来通信。在生成调用图的时候，这些问题一定要考虑到。</li>
+</ul>
+<hr>
+<p>以上是一些研究过程中的理解，具体细节的展开，等以后在细细讲解。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://chenjunhero.github.io/2018/03/10/扩展虚拟机容量/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -907,7 +1035,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
